@@ -9,6 +9,26 @@
 var doodle;
 var doodleContext;
 var framesPerSecond = 30;
+var eyeFollowY;
+var eyeFollowX;
+
+const LEFT_EYE_START_X = 180;
+const LEFT_EYE_START_Y = 200;
+
+const RIGHT_EYE_START_X = 90;
+const RIGHT_EYE_START_Y = 200;
+
+
+var leftEyeX = LEFT_EYE_START_X;
+var leftEyeY = LEFT_EYE_START_Y;
+var leftEyeRadius = 10;
+
+var rightEyeX = RIGHT_EYE_START_X;
+var rightEyeY = RIGHT_EYE_START_Y;
+var rightEyeRadius = 6;
+
+
+var eyesColour = 'black';
 
 function calculateMousePos(evt) {
 	var rect = doodle.getBoundingClientRect();
@@ -21,16 +41,6 @@ function calculateMousePos(evt) {
 	};
 }
 
-/**
-function handleMouseClick(evt) {
-	if(showingWinScreen) {
-		player1Score = 0;
-		player2Score = 0;
-		showingWinScreen = false;
-	}
-}
-**/
-
 window.onload = function() {
 
 
@@ -42,37 +52,54 @@ window.onload = function() {
 			move();
 		}, 1000/framesPerSecond);
 
-	doodle.addEventListener('mousedown', handleMouseClick);
-
 	doodle.addEventListener('mousemove',
 		function(evt) {
 			var mousePos = calculateMousePos(evt);
-			//paddle1Y = mousePos.y - (PADDLE_HEIGHT/2);
+			eyeFollowY = mousePos.y;
+			eyeFollowX = mousePos.x;
 		});
 }
 
+function move() {
+
+
+
+	if (eyeFollowX > leftEyeX && leftEyeX < LEFT_EYE_START_X + 20) {
+		leftEyeX = leftEyeX + 10;
+	}
+	if (eyeFollowX < leftEyeX && leftEyeX > LEFT_EYE_START_X - 20) {
+		leftEyeX = leftEyeX - 10;
+	}
+
+	if (eyeFollowY > leftEyeY && leftEyeY < LEFT_EYE_START_Y + 20) {
+		leftEyeY = leftEyeY + 10;
+	}
+	if (eyeFollowY < leftEyeY && leftEyeY > LEFT_EYE_START_Y - 20) {
+		leftEyeY = leftEyeY - 10;
+	}
+
+	if (eyeFollowX > rightEyeX && rightEyeX < RIGHT_EYE_START_X + 10) {
+		rightEyeX = rightEyeX + 10;
+	}
+	if (eyeFollowX < rightEyeX && rightEyeX > RIGHT_EYE_START_X - 10) {
+		rightEyeX = rightEyeX - 10;
+	}
+
+	if (eyeFollowY > rightEyeY && rightEyeY < RIGHT_EYE_START_Y + 10) {
+		rightEyeY = rightEyeY + 10;
+	}
+	if (eyeFollowY < rightEyeY && rightEyeY > RIGHT_EYE_START_Y - 10) {
+		rightEyeY = rightEyeY - 10;
+	}
+}
+
 function draw() {
-
-	var leftEyeStartX = 180;
-	var leftEyeStartY = 200;
-	var leftEyeRadius = 10;
-
-	var rightEyeStartX = 90;
-	var rightEyeStartY = 200;
-	var rightEyeRadius = 6;
-
-	var eyesColour = 'black';
-
 	drawing = new Image();
 	drawing.src = "doodle2.png";
 	drawing.onload = function() {
-
-
-
-   		doodleContext.drawImage(drawing,0,0);
-   		colorCircle(leftEyeStartX, leftEyeStartY, leftEyeRadius, eyesColour);
-   		colorCircle(rightEyeStartX, rightEyeStartY, 6, 'black');
-
+		doodleContext.drawImage(drawing,0,0);
+		colorCircle(leftEyeX, leftEyeY, leftEyeRadius, eyesColour);
+		colorCircle(rightEyeX, rightEyeY, 6, 'black');
 	};
 console.log(drawing.width)
 }
@@ -88,27 +115,5 @@ function colorCircle(centerX, centerY, radius, drawColor) {
 	doodleContext.arc(centerX, centerY, radius, 0,Math.PI*2,true);
 	doodleContext.fill();
 }
-
-function move() {
-
-}
-
-function handleMouseClick(evt) {
-
-}
-
-/**
-function computerMovement() {
-	var paddle2YCenter = paddle2Y + (PADDLE_HEIGHT/2);
-	if(paddle2YCenter < ballY - 35) {
-		paddle2Y = paddle2Y + 6;
-	} else if(paddle2YCenter > ballY + 35) {
-		paddle2Y = paddle2Y - 6;
-	}
-}
-**/
-
-
 </script>
-
 </html>
