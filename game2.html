@@ -1,6 +1,9 @@
 <html>
 
-<canvas id="doodle" width="200" height="200"></canvas>
+<canvas id="doodle" width="600" height="600"></canvas>
+
+
+
 
 <script>
 var doodle;
@@ -49,15 +52,48 @@ window.onload = function() {
 }
 
 function draw() {
-	colorRect(0,0,doodle.width,doodle.height,'black');
+
+	var leftEyeStartX = 180;
+	var leftEyeStartY = 200;
+	var leftEyeRadius = 10;
+
+	var rightEyeStartX = 90;
+	var rightEyeStartY = 200;
+	var rightEyeRadius = 6;
+
+	var eyesColour = 'black';
+
+	drawing = new Image();
+	drawing.src = "doodle2.png";
+	drawing.onload = function() {
+
+
+
+   		doodleContext.drawImage(drawing,0,0);
+   		colorCircle(leftEyeStartX, leftEyeStartY, leftEyeRadius, eyesColour);
+   		colorCircle(rightEyeStartX, rightEyeStartY, 6, 'black');
+
+	};
+console.log(drawing.width)
 }
 
 function colorRect(leftX,topY, width,height, drawColor) {
-	canvasContext.fillStyle = drawColor;
-	canvasContext.fillRect(leftX,topY, width,height);
+	doodleContext.fillStyle = drawColor;
+	doodleContext.fillRect(leftX,topY, width,height);
+}
+
+function colorCircle(centerX, centerY, radius, drawColor) {
+	doodleContext.fillStyle = drawColor;
+	doodleContext.beginPath();
+	doodleContext.arc(centerX, centerY, radius, 0,Math.PI*2,true);
+	doodleContext.fill();
 }
 
 function move() {
+
+}
+
+function handleMouseClick(evt) {
 
 }
 
