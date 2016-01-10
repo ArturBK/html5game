@@ -1,0 +1,78 @@
+<html>
+
+<canvas id="doodle" width="200" height="200"></canvas>
+
+<script>
+var doodle;
+var doodleContext;
+var framesPerSecond = 30;
+
+function calculateMousePos(evt) {
+	var rect = doodle.getBoundingClientRect();
+	var root = document.documentElement;
+	var mouseX = evt.clientX - rect.left - root.scrollLeft;
+	var mouseY = evt.clientY - rect.top - root.scrollTop;
+	return {
+		x:mouseX,
+		y:mouseY
+	};
+}
+
+/**
+function handleMouseClick(evt) {
+	if(showingWinScreen) {
+		player1Score = 0;
+		player2Score = 0;
+		showingWinScreen = false;
+	}
+}
+**/
+
+window.onload = function() {
+
+
+	doodle = document.getElementById('doodle');
+	doodleContext = doodle.getContext('2d');
+
+	setInterval(function() {
+			draw();
+			move();
+		}, 1000/framesPerSecond);
+
+	doodle.addEventListener('mousedown', handleMouseClick);
+
+	doodle.addEventListener('mousemove',
+		function(evt) {
+			var mousePos = calculateMousePos(evt);
+			//paddle1Y = mousePos.y - (PADDLE_HEIGHT/2);
+		});
+}
+
+function draw() {
+	colorRect(0,0,doodle.width,doodle.height,'black');
+}
+
+function colorRect(leftX,topY, width,height, drawColor) {
+	canvasContext.fillStyle = drawColor;
+	canvasContext.fillRect(leftX,topY, width,height);
+}
+
+function move() {
+
+}
+
+/**
+function computerMovement() {
+	var paddle2YCenter = paddle2Y + (PADDLE_HEIGHT/2);
+	if(paddle2YCenter < ballY - 35) {
+		paddle2Y = paddle2Y + 6;
+	} else if(paddle2YCenter > ballY + 35) {
+		paddle2Y = paddle2Y - 6;
+	}
+}
+**/
+
+
+</script>
+
+</html>
