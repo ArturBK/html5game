@@ -27,7 +27,7 @@ var rightEyeX = RIGHT_EYE_START_X;
 var rightEyeY = RIGHT_EYE_START_Y;
 var rightEyeRadius = 6;
 
-var showText = false;
+var mouseClickLeft = false;
 
 
 var eyesColour = 'black';
@@ -65,42 +65,44 @@ window.onload = function() {
 }
 
 function handleMouseClick(){
-	if (showText == true){
-		showText = false;
+	if (mouseClickLeft == true){
+		mouseClickLeft = false;
 	}
 	else{
-		showText = true;
+		mouseClickLeft = true;
 	}
 }
 
 function move() {
 
-	if (eyeFollowX > leftEyeX && leftEyeX < LEFT_EYE_START_X + 20) {
-		leftEyeX = leftEyeX + 10;
-	}
-	if (eyeFollowX < leftEyeX && leftEyeX > LEFT_EYE_START_X - 20) {
-		leftEyeX = leftEyeX - 10;
-	}
+if (!mouseClickLeft){
+		if (eyeFollowX > leftEyeX && leftEyeX < LEFT_EYE_START_X + 20) {
+			leftEyeX = leftEyeX + 10;
+		}
+		if (eyeFollowX < leftEyeX && leftEyeX > LEFT_EYE_START_X - 20) {
+			leftEyeX = leftEyeX - 10;
+		}
 
-	if (eyeFollowY > leftEyeY && leftEyeY < LEFT_EYE_START_Y + 20) {
-		leftEyeY = leftEyeY + 10;
-	}
-	if (eyeFollowY < leftEyeY && leftEyeY > LEFT_EYE_START_Y - 20) {
-		leftEyeY = leftEyeY - 10;
-	}
+		if (eyeFollowY > leftEyeY && leftEyeY < LEFT_EYE_START_Y + 20) {
+			leftEyeY = leftEyeY + 10;
+		}
+		if (eyeFollowY < leftEyeY && leftEyeY > LEFT_EYE_START_Y - 20) {
+			leftEyeY = leftEyeY - 10;
+		}
 
-	if (eyeFollowX > rightEyeX && rightEyeX < RIGHT_EYE_START_X + 10) {
-		rightEyeX = rightEyeX + 10;
-	}
-	if (eyeFollowX < rightEyeX && rightEyeX > RIGHT_EYE_START_X - 10) {
-		rightEyeX = rightEyeX - 10;
-	}
+		if (eyeFollowX > rightEyeX && rightEyeX < RIGHT_EYE_START_X + 10) {
+			rightEyeX = rightEyeX + 10;
+		}
+		if (eyeFollowX < rightEyeX && rightEyeX > RIGHT_EYE_START_X - 10) {
+			rightEyeX = rightEyeX - 10;
+		}
 
-	if (eyeFollowY > rightEyeY && rightEyeY < RIGHT_EYE_START_Y + 10) {
-		rightEyeY = rightEyeY + 10;
-	}
-	if (eyeFollowY < rightEyeY && rightEyeY > RIGHT_EYE_START_Y - 10) {
-		rightEyeY = rightEyeY - 10;
+		if (eyeFollowY > rightEyeY && rightEyeY < RIGHT_EYE_START_Y + 10) {
+			rightEyeY = rightEyeY + 10;
+		}
+		if (eyeFollowY < rightEyeY && rightEyeY > RIGHT_EYE_START_Y - 10) {
+			rightEyeY = rightEyeY - 10;
+		}
 	}
 }
 
@@ -112,10 +114,10 @@ function draw() {
 		colorCircle(leftEyeX, leftEyeY, leftEyeRadius, eyesColour);
 		colorCircle(rightEyeX, rightEyeY, 6, 'black');
 
-		if (showText){
-  			doodleContext.fillStyle = "blue";
+		if (mouseClickLeft){
+  			doodleContext.fillStyle = "red";
 		  	doodleContext.font = "bold 24px Arial";
-		  	doodleContext.fillText("It's me!", eyeFollowX, eyeFollowY);
+		  	doodleContext.fillText("Click!", eyeFollowX, eyeFollowY);
 		}
 	};
 console.log(drawing.width)
